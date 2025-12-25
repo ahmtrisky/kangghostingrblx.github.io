@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Artikel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Tema Purple (Default) */
+        body.theme-purple {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Tema Dark */
+        body.theme-dark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.theme-dark header,
+        body.theme-dark .add-article,
+        body.theme-dark .article-card {
+            background: #0f3460;
+            color: #e8e8e8;
+        }
+
+        body.theme-dark h1,
+        body.theme-dark h2,
+        body.theme-dark h3 {
+            color: #e8e8e8;
+        }
+
+        body.theme-dark p,
+        body.theme-dark .date {
+            color: #b8b8b8;
+        }
+
+        body.theme-dark input,
+        body.theme-dark textarea {
+            background: #16213e;
+            color: #e8e8e8;
+            border-color: #533483;
+        }
+
+        /* Tema Ocean */
+        body.theme-ocean {
+            background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%);
+        }
+
+        body.theme-ocean .social-links a,
+        body.theme-ocean .article-card a,
+        body.theme-ocean .add-article button {
+            background: #00a8cc;
+        }
+
+        body.theme-ocean .social-links a:hover,
+        body.theme-ocean .article-card a:hover,
+        body.theme-ocean .add-article button:hover {
+            background: #0077b6;
+        }
+
+        /* Tema Sunset */
+        body.theme-sunset {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        body.theme-sunset .social-links a,
+        body.theme-sunset .article-card a,
+        body.theme-sunset .add-article button {
+            background: #ee5a6f;
+        }
+
+        body.theme-sunset .social-links a:hover,
+        body.theme-sunset .article-card a:hover,
+        body.theme-sunset .add-article button:hover {
+            background: #c44569;
+        }
+
+        /* Tema Forest */
+        body.theme-forest {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        }
+
+        body.theme-forest .social-links a,
+        body.theme-forest .article-card a,
+        body.theme-forest .add-article button {
+            background: #3d8b40;
+        }
+
+        body.theme-forest .social-links a:hover,
+        body.theme-forest .article-card a:hover,
+        body.theme-forest .add-article button:hover {
+            background: #2d6a31;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .theme-btn {
+            padding: 8px 16px;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-btn.active {
+            border-color: #333;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .theme-btn.purple { color: #667eea; }
+        .theme-btn.dark { color: #0f3460; }
+        .theme-btn.ocean { color: #00a8cc; }
+        .theme-btn.sunset { color: #ee5a6f; }
+        .theme-btn.forest { color: #3d8b40; }
+
+        header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .social-links a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .articles {
+            display: grid;
+            gap: 20px;
+        }
+
+        .article-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .article-card h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .article-card .date {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .article-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .article-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .article-card a:hover {
+            background: #764ba2;
+        }
+
+        .add-article {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .add-article h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .add-article input,
+        .add-article textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        .add-article input:focus,
+        .add-article textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .add-article textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .add-article button {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-article button:hover {
+            background: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .social-links {
+                gap: 10px;
+            }
+
+            .social-links a {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+
+            .article-card h2 {
+                font-size: 1.2em;
+            }
+
+            .add-article,
+            header,
+            .article-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nama Anda</h1>
+            <p>Penulis & Content Creator</p>
+            
+            <div class="theme-switcher">
+                <button class="theme-btn purple active" onclick="changeTheme('purple')">🌟 Purple</button>
+                <button class="theme-btn dark" onclick="changeTheme('dark')">🌙 Dark</button>
+                <button class="theme-btn ocean" onclick="changeTheme('ocean')">🌊 Ocean</button>
+                <button class="theme-btn sunset" onclick="changeTheme('sunset')">🌅 Sunset</button>
+                <button class="theme-btn forest" onclick="changeTheme('forest')">🌲 Forest</button>
+            </div>
+
+            <div class="social-links">
+                <a href="https://instagram.com/username" target="_blank">📷 Instagram</a>
+                <a href="https://twitter.com/username" target="_blank">🐦 Twitter</a>
+                <a href="https://facebook.com/username" target="_blank">📘 Facebook</a>
+                <a href="https://linkedin.com/in/username" target="_blank">💼 LinkedIn</a>
+            </div>
+        </header>
+
+        <div class="add-article">
+            <h3>Tambah Artikel Baru</h3>
+            <input type="text" id="articleTitle" placeholder="Judul Artikel">
+            <textarea id="articleDesc" placeholder="Deskripsi singkat artikel..."></textarea>
+            <input type="url" id="articleLink" placeholder="Link artikel (https://...)">
+            <button onclick="addArticle()">Tambah Artikel</button>
+        </div>
+
+        <div class="articles" id="articlesContainer">
+            <div class="article-card">
+                <h2>Contoh Judul Artikel</h2>
+                <div class="date">25 Desember 2024</div>
+                <p>Ini adalah contoh deskripsi artikel. Anda bisa mengganti dengan artikel Anda sendiri menggunakan form di atas.</p>
+                <a href="#" target="_blank">Baca Selengkapnya →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let articles = [];
+        let currentTheme = 'purple';
+
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'purple';
+            changeTheme(savedTheme);
+        });
+
+        function changeTheme(theme) {
+            // Remove all theme classes
+            document.body.className = '';
+            document.body.classList.add('theme-' + theme);
+            
+            // Update active button
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector('.theme-btn.' + theme).classList.add('active');
+            
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+        }
+
+        function addArticle() {
+            const title = document.getElementById('articleTitle').value;
+            const desc = document.getElementById('articleDesc').value;
+            const link = document.getElementById('articleLink').value;
+
+            if (!title || !desc || !link) {
+                alert('Mohon isi semua field!');
+                return;
+            }
+
+            const article = {
+                title: title,
+                description: desc,
+                link: link,
+                date: new Date().toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })
+            };
+
+            articles.unshift(article);
+            renderArticles();
+
+            document.getElementById('articleTitle').value = '';
+            document.getElementById('articleDesc').value = '';
+            document.getElementById('articleLink').value = '';
+        }
+
+        function renderArticles() {
+            const container = document.getElementById('articlesContainer');
+            container.innerHTML = articles.map(article => `
+                <div class="article-card">
+                    <h2>${article.title}</h2>
+                    <div class="date">${article.date}</div>
+                    <p>${article.description}</p>
+                    <a href="${article.link}" target="_blank">Baca Selengkapnya →</a>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
